@@ -26,6 +26,8 @@ Built by the [Surge AI](https://www.surgehq.ai) evals team. To evaluate your mod
 
 ## Quick start
 
+For Osmosis shared-image preparation, artifact contracts and release validation, see [MANAGED.md](MANAGED.md).
+
 ```bash
 # 1. Build the base image (build context is self-contained)
 docker build -t handbook_base docker/

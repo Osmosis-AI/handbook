@@ -1,0 +1,76 @@
+name: Managed runtime
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the tested runtime to GHCR and prepare a release artifact
+        type: boolean
+        default: false
+      version:
+        description: Dataset version for the generated overlay
+        type: string
+        default: "1.0.0"
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v8.1.0
+      - name: Verify the image uses the same runner as the host tests
+        run: cmp agent_harness/src/agent_harness/openhands_runner.py docker/openhands-runner/openhands_runner.py
+      - name: Protect the upstream task data and host wrapper
+        run: git diff --exit-code 9ab14d039f2475b158634d37ef91c3d8378a13ca -- tasks agent_harness/src/agent_harness/openhands_agent.py
+      - run: uv run --directory agent_harness --locked --python 3.13 --with pytest --with openhands-sdk==1.28.1 python -m pytest tests -q
+
+  runtime:
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    env:
+      IMAGE: ghcr.io/osmosis-ai/handbook-runtime
+      HARBOR_COMMIT: c6721983561c089bf399440f11c22509bffa4357
+      VERSION: ${{ inputs.version || '1.0.0' }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: docker/setup-buildx-action@v4
+      - name: Build one native amd64 runtime
+        run: docker buildx build --load --platform linux/amd64 --provenance=false --metadata-file "$RUNNER_TEMP/build.json" --build-arg "GIT_SHA=$GITHUB_SHA" --tag handbook-runtime:test docker
+      - name: Exercise real MCP tools and verifiers with no external network
+        run: |
+          digest="$(python3 -c 'import json,os; print(json.load(open(os.environ["RUNNER_TEMP"]+"/build.json"))["containerimage.digest"])')"
+          python3 scripts/prepare_release.py --image "handbook-runtime@$digest" --version "$VERSION" --harbor-commit "$HARBOR_COMMIT" --output-dir "$RUNNER_TEMP/smoke-dataset"
+          python3 scripts/smoke_runtime.py --image handbook-runtime:test --dataset "$RUNNER_TEMP/smoke-dataset"
+          python3 scripts/smoke_runtime.py --image handbook-runtime:test --dataset "$RUNNER_TEMP/smoke-dataset" --all-verifiers
+      - uses: docker/login-action@v4
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish only the image that passed smoke tests
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
+        run: |
+          docker tag handbook-runtime:test "$IMAGE:$GITHUB_SHA"
+          docker push "$IMAGE:$GITHUB_SHA"
+          image_ref="$(docker image inspect "$IMAGE:$GITHUB_SHA" --format '{{index .RepoDigests 0}}')"
+          python3 scripts/prepare_release.py --image "$image_ref" --version "$VERSION" --harbor-commit "$HARBOR_COMMIT" --output-dir "$RUNNER_TEMP/release"
+          echo "Runtime: $image_ref" >> "$GITHUB_STEP_SUMMARY"
+          echo "Review and commit the release overlay before tagging the dataset; this workflow does not publish a dataset tag." >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
+        with:
+          name: handbook-release-overlay
+          path: ${{ runner.temp }}/release
