@@ -39,7 +39,7 @@ jobs:
       packages: write
     env:
       IMAGE: ghcr.io/osmosis-ai/handbook-runtime
-      HARBOR_COMMIT: c288fc29c64689f082a08716da204ae4668c1165
+      HARBOR_COMMIT: c6721983561c089bf399440f11c22509bffa4357
       VERSION: ${{ inputs.version || '1.0.0' }}
     steps:
       - uses: actions/checkout@v6
