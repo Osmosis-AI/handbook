@@ -516,14 +516,8 @@ def run(config: dict[str, Any]) -> dict[str, Any]:
     status = getattr(conversation.state, "execution_status", None)
     status_val = getattr(status, "value", status)
     infra_failure = saw_error or status_val == ConversationExecutionStatus.ERROR.value
-    did_work = n_tool_calls > 0 or bool(final_output)
-    if saw_error:
-        # conversation.run() raised (e.g. litellm.Timeout / provider error): the
-        # loop was cut short and never completed, so this is a transport/infra
-        # failure even if the agent had already made tool calls.
-        stopped_reason = "error"
-    elif infra_failure and not did_work:
-        # ERROR with no output is a genuine failure.
+    if infra_failure:
+        # Partial work does not turn an SDK/provider failure into a scored trial.
         stopped_reason = "error"
     elif status_val == ConversationExecutionStatus.STUCK.value:
         stopped_reason = "stuck"

@@ -170,6 +170,29 @@ def test_a_plain_agent_message_ends_the_turn_with_its_text_as_final_output(sdk, 
     assert trajectory["n_tool_calls"] == 0
 
 
+def test_sdk_error_after_partial_output_is_not_a_scored_completion(sdk, tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    from openhands.sdk.llm import Message, TextContent
+
+    class FailedConversation:
+        def __init__(self, callbacks, **kwargs):
+            self.callback = callbacks[0]
+            self.state = SimpleNamespace(execution_status=sdk.ConversationExecutionStatus.ERROR)
+
+        def send_message(self, instruction):
+            pass
+
+        def run(self):
+            self.callback(sdk.MessageEvent(source="agent", llm_message=Message(
+                role="assistant", content=[TextContent(text="Partial work")]
+            )))
+
+    monkeypatch.setattr(sdk, "Conversation", FailedConversation)
+    result, _ = _run_scripted(tmp_path, monkeypatch, [])
+    assert result["final_output"] == "Partial work"
+    assert result["stopped_reason"] == "error"
+
+
 # ---------------------------------------------------------------------------
 # Responses-path tests cover history replay and condenser transport against the
 # pinned SDK 1.28.1. Conversation-level tests drive the real loop on /responses.

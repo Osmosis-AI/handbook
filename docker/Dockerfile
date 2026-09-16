@@ -1,7 +1,9 @@
 # syntax=docker/dockerfile:1.7
-FROM python:3.13-slim
+FROM python:3.13-slim@sha256:9d2e5553305c7c7b0097999bb17187c69b921ccd6bc9d40e4bb5ebe652c00285
 
 ARG GIT_SHA=unknown
+LABEL org.opencontainers.image.source="https://github.com/Osmosis-AI/handbook" \
+      org.opencontainers.image.revision="${GIT_SHA}"
 ENV WORKDIR=/workdir
 
 RUN groupadd -g 1000 model && \
@@ -70,7 +72,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # Verifier deps: tests/test.sh pip-installs these at runtime; baking them in
 # makes the verifier fast and network-independent.
-RUN pip install --no-cache-dir openpyxl pdfplumber python-docx
+RUN pip install --no-cache-dir --require-hashes -r /app/verifier-requirements.txt
 RUN mkdir -p ${WORKDIR} && chown -R model:model ${WORKDIR}
 
 # Lock down sibling MCP-server source from the model user (uid 1000). handbook
