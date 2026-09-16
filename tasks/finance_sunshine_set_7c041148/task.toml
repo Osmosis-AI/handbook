@@ -11,6 +11,7 @@ timeout_sec = 3600.0
 timeout_sec = 3600.0
 
 [environment]
+docker_image = "ghcr.io/osmosis-ai/handbook-runtime@sha256:b5fb6bc3daab778eaa091c83e9f3505b12d02834cad995693f0c15445c68a0ef"
 os = "linux"
 cpus = 2
 memory_mb = 4096

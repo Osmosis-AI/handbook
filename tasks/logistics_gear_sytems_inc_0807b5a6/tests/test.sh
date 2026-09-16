@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
+set -euo pipefail
 
-pip install openpyxl pdfplumber pypdf reportlab python-docx 2>/dev/null
+python -c 'import openpyxl, pdfplumber, pypdf, reportlab, docx'
 python /tests/sop_verifier.py
 python /tests/test_evaluator_regressions.py
+cp /tests/results.json /logs/verifier/results.json

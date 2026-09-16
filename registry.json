@@ -1,0 +1,269 @@
+[
+  {
+    "name": "handbook",
+    "version": "1.0.0",
+    "description": "HANDBOOK.md: 65 enterprise instruction-following tasks, official OpenHands harness and rubric scoring.",
+    "tasks": [
+      {
+        "name": "finance_meridian_partners_158b9045",
+        "path": "tasks/finance_meridian_partners_158b9045"
+      },
+      {
+        "name": "finance_meridian_partners_19d57538",
+        "path": "tasks/finance_meridian_partners_19d57538"
+      },
+      {
+        "name": "finance_meridian_partners_331accf1",
+        "path": "tasks/finance_meridian_partners_331accf1"
+      },
+      {
+        "name": "finance_meridian_partners_4dace65e",
+        "path": "tasks/finance_meridian_partners_4dace65e"
+      },
+      {
+        "name": "finance_meridian_partners_a0895480",
+        "path": "tasks/finance_meridian_partners_a0895480"
+      },
+      {
+        "name": "finance_meridian_partners_cc2fc143",
+        "path": "tasks/finance_meridian_partners_cc2fc143"
+      },
+      {
+        "name": "finance_sunshine_set_6b9398f4",
+        "path": "tasks/finance_sunshine_set_6b9398f4"
+      },
+      {
+        "name": "finance_sunshine_set_7c041148",
+        "path": "tasks/finance_sunshine_set_7c041148"
+      },
+      {
+        "name": "finance_sunshine_set_b0b8129d",
+        "path": "tasks/finance_sunshine_set_b0b8129d"
+      },
+      {
+        "name": "finance_sunshine_set_b581c493",
+        "path": "tasks/finance_sunshine_set_b581c493"
+      },
+      {
+        "name": "finance_sunshine_set_d9d532c1",
+        "path": "tasks/finance_sunshine_set_d9d532c1"
+      },
+      {
+        "name": "finance_sunshine_set_ebac9768",
+        "path": "tasks/finance_sunshine_set_ebac9768"
+      },
+      {
+        "name": "hr_crestwood_university_1b602061",
+        "path": "tasks/hr_crestwood_university_1b602061"
+      },
+      {
+        "name": "hr_crestwood_university_2071c562",
+        "path": "tasks/hr_crestwood_university_2071c562"
+      },
+      {
+        "name": "hr_crestwood_university_79786c46",
+        "path": "tasks/hr_crestwood_university_79786c46"
+      },
+      {
+        "name": "hr_crestwood_university_d93daa01",
+        "path": "tasks/hr_crestwood_university_d93daa01"
+      },
+      {
+        "name": "hr_crestwood_university_da394eac",
+        "path": "tasks/hr_crestwood_university_da394eac"
+      },
+      {
+        "name": "hr_crestwood_university_ee4d1791",
+        "path": "tasks/hr_crestwood_university_ee4d1791"
+      },
+      {
+        "name": "hr_ridgeline_gear_co_2deeab56",
+        "path": "tasks/hr_ridgeline_gear_co_2deeab56"
+      },
+      {
+        "name": "hr_ridgeline_gear_co_44e4c745",
+        "path": "tasks/hr_ridgeline_gear_co_44e4c745"
+      },
+      {
+        "name": "hr_ridgeline_gear_co_6950ff2b",
+        "path": "tasks/hr_ridgeline_gear_co_6950ff2b"
+      },
+      {
+        "name": "hr_ridgeline_gear_co_6d4d0f70",
+        "path": "tasks/hr_ridgeline_gear_co_6d4d0f70"
+      },
+      {
+        "name": "hr_ridgeline_gear_co_6e501f78",
+        "path": "tasks/hr_ridgeline_gear_co_6e501f78"
+      },
+      {
+        "name": "hr_ridgeline_gear_co_929c1527",
+        "path": "tasks/hr_ridgeline_gear_co_929c1527"
+      },
+      {
+        "name": "hr_ridgeline_gear_co_b337f86b",
+        "path": "tasks/hr_ridgeline_gear_co_b337f86b"
+      },
+      {
+        "name": "insurance_mojave_crest_assurance_company_187e3a8c",
+        "path": "tasks/insurance_mojave_crest_assurance_company_187e3a8c"
+      },
+      {
+        "name": "insurance_mojave_crest_assurance_company_2a800bf7",
+        "path": "tasks/insurance_mojave_crest_assurance_company_2a800bf7"
+      },
+      {
+        "name": "insurance_mojave_crest_assurance_company_4d2a2588",
+        "path": "tasks/insurance_mojave_crest_assurance_company_4d2a2588"
+      },
+      {
+        "name": "insurance_mojave_crest_assurance_company_5122b4da",
+        "path": "tasks/insurance_mojave_crest_assurance_company_5122b4da"
+      },
+      {
+        "name": "insurance_mojave_crest_assurance_company_7245b8dd",
+        "path": "tasks/insurance_mojave_crest_assurance_company_7245b8dd"
+      },
+      {
+        "name": "insurance_mojave_crest_assurance_company_ab59bcf7",
+        "path": "tasks/insurance_mojave_crest_assurance_company_ab59bcf7"
+      },
+      {
+        "name": "insurance_vanguard_shield_mutual_177fce83",
+        "path": "tasks/insurance_vanguard_shield_mutual_177fce83"
+      },
+      {
+        "name": "insurance_vanguard_shield_mutual_4321b8e9",
+        "path": "tasks/insurance_vanguard_shield_mutual_4321b8e9"
+      },
+      {
+        "name": "insurance_vanguard_shield_mutual_82da8d17",
+        "path": "tasks/insurance_vanguard_shield_mutual_82da8d17"
+      },
+      {
+        "name": "insurance_vanguard_shield_mutual_89007056",
+        "path": "tasks/insurance_vanguard_shield_mutual_89007056"
+      },
+      {
+        "name": "insurance_vanguard_shield_mutual_90ff0751",
+        "path": "tasks/insurance_vanguard_shield_mutual_90ff0751"
+      },
+      {
+        "name": "insurance_vanguard_shield_mutual_9b2f7a29",
+        "path": "tasks/insurance_vanguard_shield_mutual_9b2f7a29"
+      },
+      {
+        "name": "insurance_vanguard_shield_mutual_fe30fce5",
+        "path": "tasks/insurance_vanguard_shield_mutual_fe30fce5"
+      },
+      {
+        "name": "logistics_gear_sytems_inc_0807b5a6",
+        "path": "tasks/logistics_gear_sytems_inc_0807b5a6"
+      },
+      {
+        "name": "logistics_gear_sytems_inc_502e8c5e",
+        "path": "tasks/logistics_gear_sytems_inc_502e8c5e"
+      },
+      {
+        "name": "logistics_gear_sytems_inc_74170ae1",
+        "path": "tasks/logistics_gear_sytems_inc_74170ae1"
+      },
+      {
+        "name": "logistics_gear_sytems_inc_9b60992d",
+        "path": "tasks/logistics_gear_sytems_inc_9b60992d"
+      },
+      {
+        "name": "logistics_gear_sytems_inc_ad2ff597",
+        "path": "tasks/logistics_gear_sytems_inc_ad2ff597"
+      },
+      {
+        "name": "logistics_gear_sytems_inc_dba0375e",
+        "path": "tasks/logistics_gear_sytems_inc_dba0375e"
+      },
+      {
+        "name": "logistics_prairie_star_creamery_27470081",
+        "path": "tasks/logistics_prairie_star_creamery_27470081"
+      },
+      {
+        "name": "logistics_prairie_star_creamery_4a2f4b1a",
+        "path": "tasks/logistics_prairie_star_creamery_4a2f4b1a"
+      },
+      {
+        "name": "logistics_prairie_star_creamery_7b63c60d",
+        "path": "tasks/logistics_prairie_star_creamery_7b63c60d"
+      },
+      {
+        "name": "logistics_prairie_star_creamery_861b2650",
+        "path": "tasks/logistics_prairie_star_creamery_861b2650"
+      },
+      {
+        "name": "logistics_prairie_star_creamery_a9dc52cb",
+        "path": "tasks/logistics_prairie_star_creamery_a9dc52cb"
+      },
+      {
+        "name": "logistics_prairie_star_creamery_f382586a",
+        "path": "tasks/logistics_prairie_star_creamery_f382586a"
+      },
+      {
+        "name": "medical_careig_specialty_pharmacy_08ae3378",
+        "path": "tasks/medical_careig_specialty_pharmacy_08ae3378"
+      },
+      {
+        "name": "medical_careig_specialty_pharmacy_3c62ee67",
+        "path": "tasks/medical_careig_specialty_pharmacy_3c62ee67"
+      },
+      {
+        "name": "medical_careig_specialty_pharmacy_d3e312a5",
+        "path": "tasks/medical_careig_specialty_pharmacy_d3e312a5"
+      },
+      {
+        "name": "medical_careig_specialty_pharmacy_d4619b8b",
+        "path": "tasks/medical_careig_specialty_pharmacy_d4619b8b"
+      },
+      {
+        "name": "medical_careig_specialty_pharmacy_ea622238",
+        "path": "tasks/medical_careig_specialty_pharmacy_ea622238"
+      },
+      {
+        "name": "medical_careig_specialty_pharmacy_f5947c33",
+        "path": "tasks/medical_careig_specialty_pharmacy_f5947c33"
+      },
+      {
+        "name": "medical_careig_specialty_pharmacy_f6d19d30",
+        "path": "tasks/medical_careig_specialty_pharmacy_f6d19d30"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_073e602b",
+        "path": "tasks/medical_pathfinder_billing_and_coding_073e602b"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_1d8667fc",
+        "path": "tasks/medical_pathfinder_billing_and_coding_1d8667fc"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_9d274282",
+        "path": "tasks/medical_pathfinder_billing_and_coding_9d274282"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_a25684b9",
+        "path": "tasks/medical_pathfinder_billing_and_coding_a25684b9"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_a70deabc",
+        "path": "tasks/medical_pathfinder_billing_and_coding_a70deabc"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_bbf1a560",
+        "path": "tasks/medical_pathfinder_billing_and_coding_bbf1a560"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_c01deb6e",
+        "path": "tasks/medical_pathfinder_billing_and_coding_c01deb6e"
+      },
+      {
+        "name": "medical_pathfinder_billing_and_coding_ec505b6b",
+        "path": "tasks/medical_pathfinder_billing_and_coding_ec505b6b"
+      }
+    ]
+  }
+]
