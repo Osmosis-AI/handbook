@@ -52,6 +52,9 @@ REMOTE_PROXY_LOG_PATH = f"{REMOTE_LOG_DIR}/mcp-proxy.log"
 
 # Timeouts (seconds).
 PROBE_TIMEOUT = 15
+# Client-side ceiling on the proxy launch exec, in case a transport still
+# never reports an exit code; the health probe decides in that case.
+LAUNCH_EXEC_TIMEOUT = PROBE_TIMEOUT + 15
 HEALTH_TIMEOUT = 180
 # Generous ceiling for the runner exec; the effective limit is harbor's [agent]
 # timeout_sec (× --agent-timeout-multiplier).
@@ -73,6 +76,21 @@ FORWARDED_ENV_VARS = (
 
 def _forwarded_env() -> dict[str, str]:
     return {k: v for k in FORWARDED_ENV_VARS if (v := os.environ.get(k))}
+
+
+def _proxy_launch_command() -> str:
+    """Shell command that starts the MCP proxy detached and returns at once.
+
+    ``mkdir ... && nohup ... &`` would background the whole AND-list in a
+    subshell that inherits the caller's stdout/stderr and lives as long as
+    the proxy. Daytona session commands wait for those pipes to close, so the
+    launch never reported an exit code and setup timed out. Parenthesizing
+    backgrounds only the proxy; the subshell exits immediately.
+    """
+    return (
+        f"mkdir -p {REMOTE_LOG_DIR} && "
+        f"(nohup {PROXY_START_CMD} </dev/null >>{REMOTE_PROXY_LOG_PATH} 2>&1 &)"
+    )
 
 
 FORWARDED_LLM_KWARGS = (
@@ -131,17 +149,23 @@ class OpenHandsAgent(BaseAgent):
 
         if not await self._proxy_healthy(environment):
             self.logger.info("Launching MCP proxy in-container")
-            launch = (
-                f"mkdir -p {REMOTE_LOG_DIR} && "
-                f"nohup {PROXY_START_CMD} </dev/null "
-                f">>{REMOTE_PROXY_LOG_PATH} 2>&1 &"
-            )
-            result = await environment.exec(launch, timeout_sec=PROBE_TIMEOUT)
-            if result.return_code != 0:
-                raise RuntimeError(
-                    f"failed to launch MCP proxy (rc={result.return_code}): "
-                    f"{(result.stderr or '').strip()}"
+            try:
+                result = await asyncio.wait_for(
+                    environment.exec(_proxy_launch_command(), timeout_sec=PROBE_TIMEOUT),
+                    timeout=LAUNCH_EXEC_TIMEOUT,
                 )
+            except TimeoutError:
+                self.logger.warning(
+                    "MCP proxy launch exec did not return within %ss; "
+                    "relying on the health probe",
+                    LAUNCH_EXEC_TIMEOUT,
+                )
+            else:
+                if result.return_code != 0:
+                    raise RuntimeError(
+                        f"failed to launch MCP proxy (rc={result.return_code}): "
+                        f"{(result.stderr or '').strip()}"
+                    )
         await self._wait_for_proxy(environment)
 
     async def run(
